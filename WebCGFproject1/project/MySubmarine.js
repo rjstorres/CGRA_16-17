@@ -19,6 +19,8 @@
     this.cylinder = new MyCylinder(this.scene,40,1,0.4,0.4);
     this.centre = new MyLamp(this.scene,20,20,0.1);
     this.paddle = new MyUnitCubeQuad(this.scene);
+    this.porthole = new MyCylinder(this.scene,40,2,0.9,0.5);
+    this.beatle = new MyCircle(this.scene,40,0.5);
     
 	this.materialSteel = new CGFappearance(this.scene);
 	this.materialSteel.setAmbient(0.3,0.3,0.3,1);
@@ -32,6 +34,34 @@
 //	this.yellow.setEmission(0.95,0.8,0.3,1);
 	this.yellow.setSpecular(0.3,0.3,0.3,1);	
 	this.yellow.setShininess(120);
+
+	this.john = new CGFappearance(this.scene);
+	this.john.loadTexture("../resources/images/john.png");
+	this.john.setAmbient(0.3,0.3,0.3,1);
+	this.john.setDiffuse(0.7,0.7,0.7,1);
+	this.john.setSpecular(0.5,0.5,0.5,1);	
+	this.john.setShininess(120);
+	
+	this.paul = new CGFappearance(this.scene);
+	this.paul.setAmbient(0.3,0.3,0.3,1);
+	this.paul.setDiffuse(0.7,0.7,0.7,1);
+	this.paul.setSpecular(0.5,0.5,0.5,1);	
+	this.paul.setShininess(120);
+	this.paul.loadTexture("../resources/images/paul.png");
+
+	this.ringo = new CGFappearance(this.scene);
+	this.ringo.setAmbient(0.3,0.3,0.3,1);
+	this.ringo.setDiffuse(0.7,0.7,0.7,1);
+	this.ringo.setSpecular(0.5,0.5,0.5,1);	
+	this.ringo.setShininess(120);
+	this.ringo.loadTexture("../resources/images/ringo.png");
+
+	this.george = new CGFappearance(this.scene);
+	this.george.setAmbient(0.3,0.3,0.3,1);
+	this.george.setDiffuse(0.7,0.7,0.7,1);
+	this.george.setSpecular(0.5,0.5,0.5,1);	
+	this.george.setShininess(120);
+	this.george.loadTexture("../resources/images/george.png");
 
  };
 
@@ -222,5 +252,53 @@
 		this.scene.translate(0,-6.5,0);
 		this.yellow.apply();
 		this.fin.display();
+	this.scene.popMatrix();
+
+	//back portholes
+	this.scene.pushMatrix();
+		this.scene.rotate(90*degToRad,0,1,0);
+		this.scene.translate(-1.5,0.1,-0.9);
+		this.yellow.apply();
+		this.porthole.display();
+	this.scene.popMatrix();
+
+	//front portholes
+	this.scene.pushMatrix();
+		this.scene.rotate(90*degToRad,0,1,0);
+		this.scene.translate(-3,0.1,-0.9);
+		this.yellow.apply();
+		this.porthole.display();
+	this.scene.popMatrix();
+
+	//front right porthole
+	this.scene.pushMatrix();
+		this.scene.rotate(90*degToRad,0,1,0);
+		this.scene.translate(-3,0.1,-0.9);
+		this.john.apply();
+		this.beatle.display();
+	this.scene.popMatrix();
+
+	//back right porthole
+	this.scene.pushMatrix();
+		this.scene.rotate(90*degToRad,0,1,0);
+		this.scene.translate(-1.5,0.1,-0.9);
+		this.george.apply();
+		this.beatle.display();
+	this.scene.popMatrix();
+
+	//front left porthole
+	this.scene.pushMatrix();
+		this.scene.rotate(90*degToRad,0,1,0);
+		this.scene.translate(-3,0.1,0.9);
+		this.paul.apply();
+		this.beatle.display();
+	this.scene.popMatrix();
+
+	//back left porthole
+	this.scene.pushMatrix();
+		this.scene.rotate(90*degToRad,0,1,0);
+		this.scene.translate(-1.5,0.1,0.9);
+		this.ringo.apply();
+		this.beatle.display();
 	this.scene.popMatrix();
  }
