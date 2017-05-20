@@ -33,7 +33,7 @@ MyScene.prototype.init = function(application) {
 
     this.initLights();
 
-    this.gl.clearColor(0.0, 0.0, 1.0, 1.0);
+    this.gl.clearColor(0.0, 0.6, 1, 1);
     this.gl.clearDepth(100.0);
     this.gl.enable(this.gl.DEPTH_TEST);
     this.gl.enable(this.gl.CULL_FACE);
@@ -42,7 +42,7 @@ MyScene.prototype.init = function(application) {
     this.axis = new CGFaxis(this);
 	
     // Scene elements
-    this.floor = new MyQuad(this,0, 10, 0, 12);
+    this.floor = new MyQuad(this,0, 1, 0, 1);
     this.columnRight = new MyCylinder(this, 20, 20,1/15,1);
   	this.clock = new MyClock(this,105,184.5,270);
 	this.fin = new MyFin(this);
@@ -54,8 +54,8 @@ MyScene.prototype.init = function(application) {
     this.materialDefault = new CGFappearance(this);
 	
 	this.floorAppearance = new CGFappearance(this);
- 	this.floorAppearance.loadTexture("../resources/images/deepsea.png");
- 	this.floorAppearance.setTextureWrap("REPEAT","REPEAT");
+ 	this.floorAppearance.loadTexture("../resources/images/water.png");
+ 	this.floorAppearance.setTextureWrap("CLAMP_TO_EDGE","CLAMP_TO_EDGE");
 	this.floorAppearance.setDiffuse(0.9,0.9,0.9,1);
 	this.floorAppearance.setSpecular(0.1,0.1,0.1,1);	
 	this.floorAppearance.setShininess(30);
