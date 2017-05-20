@@ -7,8 +7,13 @@
 
  	this.myUnitCubeQuad = new MyUnitCubeQuad(this.scene);
  	this.myUnitCubeQuad.initBuffers();
-
- 	
+	
+	//Variaveis de movimento
+ 	this.xpos=0.0;
+	this.ypos=0.0;
+	this.zpos=0.0;
+	this.angle=0.0;
+	this.velocity=0;
  	
     this.body = new MyCylinder(this.scene, 40, 4, 1, 1); //(scene, slices, stacks, stackheight, wide)
     this.hatch = new MyCylinder(this.scene, 40, 2, 0.6, 0.6);
@@ -82,9 +87,34 @@
  MySubmarine.prototype.constructor = MySubmarine;
 
  MySubmarine.prototype.display = function() {
+	 this.scene.translate(this.xpos,this.ypos,this.zpos);
+	 this.scene.rotate(this.angle,0,1,0);
+	 this.applyTextures();
+ }
+ 
+ MySubmarine.prototype.updatePosition = function(TimePassed){
+	 this.resistForce=0.5;
+    this.zpos += this.resistForce*Math.cos(this.angle) * this.velocity*TimePassed/1000;
+	this.xpos += this.resistForce*Math.sin(this.angle) * this.velocity*TimePassed/1000;
+ }
+ 
+ MySubmarine.prototype.setVelocity = function(vlc) {
+	if(this.velocity+vlc<=5||this.velocity+vlc<=(-5))
+		this.velocity+=vlc;
+	console.log(this.velocity); 
+ }
+ 
+ MySubmarine.prototype.setAngle = function(Angle){
+    this.angle += Angle * Math.PI / 180.0;
+ }
 
-   this.submarineAppearances[this.scene.currSubmarineAppearance][0].apply();
-    
+MySubmarine.prototype.setheight = function(height){
+    this.ypos += height;
+}
+
+ MySubmarine.prototype.applyTextures = function() {
+	 
+   this.submarineAppearances[this.scene.currSubmarineAppearance][0].apply(); 
 	/////   /////   SHIP   /////   /////
 
     //body
