@@ -312,15 +312,17 @@ MyScene.prototype.update = function(currTime) {
 	}else
 	{
 		if(this.time != time && this.enableClock){
-			this.time = time;
 			this.clock.update();
+			this.time = time;
 		}
 	}
 	this.submarine.updatePosition(this.timePassed);
 	this.submarine.updateTurbines();
 	if(this.submarine.torp == 1){
-		this.submarine.updateTorpedo();
+		this.submarine.updateTorpedo(this.timePassed);
+		this.submarine.checkColision(this.timePassed);
 	}
+
 }
 
 
@@ -420,11 +422,7 @@ MyScene.prototype.display = function() {
 		this.target.display();
 	this.popMatrix();
 
-	this.targetlist[0]=[];
-	this.targetlist[0]=[2,1.1,2];
 
-
-/*
 	//Target 2
 	this.pushMatrix();
 		this.translate(13,1.1,13);
@@ -433,12 +431,19 @@ MyScene.prototype.display = function() {
 		this.rotate(180*degToRad,0,1,0);
 		this.target.display();
 	this.popMatrix();
-    
-    this.targetlist[1]=[];
-	this.targetlist[1]=[13,1.1,13];
+
+		//Target 3
+	this.pushMatrix();
+		this.translate(13,1.1,5);
+		this.rotate(90*degToRad,0,1,0);
+		this.rotate(30*degToRad,1,0,0);
+		this.rotate(180*degToRad,0,1,0);
+		this.target.display();
+	this.popMatrix();
+   /* 
+    this.targetlist[2]=[];
+	this.targetlist[2]=[13,1.1,5];
 */
-
-
 
 ////////// Poke Ball ///////////
 

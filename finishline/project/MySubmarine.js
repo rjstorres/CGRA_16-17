@@ -26,6 +26,8 @@
 
 	this.torp = 0;
 
+	this.tfire = 0;
+
 	this.xtorp = 0;
 	this.ztorp = 0;
  	
@@ -175,7 +177,7 @@ MySubmarine.prototype.updateTurbines = function() {
     this.setAngleT(this.angleT + 20);
 }
 
-MySubmarine.prototype.updateTorpedo = function(){
+MySubmarine.prototype.updateTorpedo = function(timeP){
 	if(this.torpupdate>=-1.5){
 		this.setTorPos(this.torpupdate-0.1);
 	}
@@ -183,7 +185,7 @@ MySubmarine.prototype.updateTorpedo = function(){
 		this.setTorPos(-1.5);
 	}
 	if(this.tfire==1){
-		this.fireTorpedo();
+		this.fireTorpedo(timeP);
 	}
 /*	if(this.torpupdate==-1.5){
 		this.rotTorp();
@@ -219,13 +221,23 @@ MySubmarine.prototype.setTorpedo = function(){
 
 MySubmarine.prototype.fire = function(){
 	this.tfire = 1;
-//	this.torp = 1;
-//	this.torpAngle = 0;
-//	this.torpupdate = 0;
 }
 
-MySubmarine.prototype.fireTorpedo = function(){
+MySubmarine.prototype.fireTorpedo = function(TimePassed){
+	this.resistForce=0.5;
+    this.ztorp += this.resistForce*Math.cos(this.torpAngle) * 5*TimePassed/1000;
+	this.xtorp += this.resistForce*Math.sin(this.torpAngle) * 5*TimePassed/1000;
+}
 
+MySubmarine.prototype.checkColision = function(t){
+	if((this.xtorp<-15)||this.xtorp>15||this.ztorp<-15||this.ztorp>15){	
+			this.torp = 0;
+			this.torpAngle = 0;
+			this.torpupdate = 0;
+			this.xtorp = 0;
+			this.ztorp = 0;
+			this.tfire = 0;
+		}
 }
 
 
