@@ -14,6 +14,12 @@
 	this.zpos=0.0;
 	this.angle=0.0;
 	this.velocity=0;
+
+	this.vertical = 0;
+	this.direction = 0;
+	this.angleT = 0;
+	this.angleF = 0;
+	this.scopepos = 0;
  	
     this.body = new MyCylinder(this.scene, 40, 4, 1, 1); //(scene, slices, stacks, stackheight, wide)
     this.hatch = new MyCylinder(this.scene, 40, 2, 0.6, 0.6);
@@ -109,10 +115,6 @@
  MySubmarine.prototype.constructor = MySubmarine;
 
 //starting vars
-this.vertical = 0;
-this.direction = 0;
-this.angleT = 0;
-this.angleF = 0;
 
 
  MySubmarine.prototype.display = function() {
@@ -141,6 +143,13 @@ MySubmarine.prototype.setheight = function(height){
     this.ypos += height;
 }
 
+MySubmarine.prototype.setScope = function(scop){
+	if(this.scopepos<=0.5 && this.scopepos>=-0.5){this.scopepos += scop;}
+	if(this.scopepos>0.5){this.scopepos = 0.5;}
+	if(this.scopepos<-0.5){this.scopepos = -0.5;}
+
+}
+
 MySubmarine.prototype.setDirection = function(value){
 	this.direction = value;
 }
@@ -150,12 +159,11 @@ MySubmarine.prototype.setVertical = function(value){
 }
 
  MySubmarine.prototype.setAngleT = function(a) {
-    angleT = a;
-    
+    this.angleT = a;
 }
 
 MySubmarine.prototype.updateTurbines = function() {
-    this.setAngleT(angleT + 360 / 60);
+    this.setAngleT(this.angleT + 20);
 }
 
 
@@ -167,7 +175,6 @@ MySubmarine.prototype.updateTurbines = function() {
 	 
    this.submarineAppearances[this.scene.currSubmarineAppearance][0].apply(); 
 	/////   /////   SHIP   /////   /////
-//this.direction = 0;
 
     //body
     this.scene.pushMatrix();
@@ -213,30 +220,27 @@ MySubmarine.prototype.updateTurbines = function() {
 
 	//scope
 	this.scene.pushMatrix();
+	this.scene.translate(0,this.scopepos,0);
 		this.scene.scale(1,3,1);
 		this.scene.translate(0,1,1.5);
 		this.scene.rotate(90*degToRad,1,0,0);
 //		this.yellow.apply();
+		
 		this.scope.display();
 	this.scene.popMatrix();
 
 	//scope top
 	this.scene.pushMatrix();
+	this.scene.translate(0,this.scopepos,0);
 	//	this.scene.scale(1,1,1);
 		this.scene.translate(0,3,1.455);
 	//	this.scene.rotate(90*degToRad,1,0,0);
 //		this.yellow.apply();
+		
 		this.scope.display();
 	this.scene.popMatrix();
 
-/*	//scope top
-	this.scene.pushMatrix();
-		this.scene.scale(0.09,0.09,1);
-		this.scene.translate(0,30*1.1,1.45);
-		this.scene.rotate(180*degToRad,1,0,0);
-		this.yellow.apply();
-		this.circle.display();
-	this.scene.popMatrix();*/
+
 
 	//hatch fin
 	this.scene.pushMatrix();
@@ -309,7 +313,7 @@ MySubmarine.prototype.updateTurbines = function() {
 	//left turbine paddle
 	this.scene.pushMatrix();
 		this.scene.translate(0.9,-0.8,-0.25);
-		this.scene.rotate(this.velocity*angleT*degToRad,0,0,1);
+		this.scene.rotate(this.velocity*this.angleT*degToRad,0,0,1);
 		this.scene.scale(0.6,0.15,0.05);
 //		this.yellow.apply();
 		this.paddle.display();
@@ -319,7 +323,7 @@ MySubmarine.prototype.updateTurbines = function() {
 	//right turbine paddle
 	this.scene.pushMatrix();
 		this.scene.translate(-0.9,-0.8,-0.25);
-		this.scene.rotate(this.velocity*angleT*degToRad,0,0,1);
+		this.scene.rotate(this.velocity*this.angleT*degToRad,0,0,1);
 		this.scene.scale(0.6,0.15,0.05);
 //		this.yellow.apply();
 		this.paddle.display();
@@ -338,7 +342,7 @@ MySubmarine.prototype.updateTurbines = function() {
 
 	//back turbine paddle 1
 	this.scene.pushMatrix();
-		this.scene.rotate(this.velocity*angleT*degToRad,0,0,1);	
+		this.scene.rotate(this.velocity*this.angleT*degToRad,0,0,1);	
 		this.scene.rotate(90*degToRad,1,0,0);
 		this.scene.rotate(45*degToRad,0,1,0);
 		this.scene.scale(0.8,0.2,0.15);
@@ -349,7 +353,7 @@ MySubmarine.prototype.updateTurbines = function() {
 
 	//back turbine paddle 2
 	this.scene.pushMatrix();
-		this.scene.rotate(this.velocity*angleT*degToRad,0,0,1);	
+		this.scene.rotate(this.velocity*this.angleT*degToRad,0,0,1);	
 		this.scene.rotate(90*degToRad,1,0,0);	
 		this.scene.rotate(-45*degToRad,0,1,0);
 		this.scene.scale(0.8,0.2,0.15);

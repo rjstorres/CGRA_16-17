@@ -114,14 +114,14 @@ MyInterface.prototype.processKeyboard = function(event) {
 			break;
 		case (81):
 		case(113):
-			console.log("Key 'q' pressed");
+			console.log("Key 'Q' pressed");
 			this.scene.setheight(0.03);
 			this.scene.setVertical(-1);
 			this.scene.setDirection(0);
 			break;
 		case (69):
 		case(101):
-		    console.log("Key 'e' pressed");
+		    console.log("Key 'E' pressed");
 			this.scene.setheight(-0.03);
 			this.scene.setVertical(1);
 			this.scene.setDirection(0);
@@ -129,12 +129,16 @@ MyInterface.prototype.processKeyboard = function(event) {
 		case(80):
 		case(112):
 			console.log("Key 'P' pressed");
-		
+			this.scene.setDirection(0);
+			this.scene.setVertical(0);
+			this.scene.setScope(0.1);
 			break;
 		case(76):
 		case(108):
 			console.log("Key 'L' pressed");
-		
+			this.scene.setDirection(0);
+			this.scene.setVertical(0);
+			this.scene.setScope(-0.1);
 			break;
 	};
 };

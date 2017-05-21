@@ -42,13 +42,12 @@ MyScene.prototype.init = function(application) {
     this.axis = new CGFaxis(this);
 	
     // Scene elements
+    this.wall = new Plane(this);
     this.floor = new MyQuad(this,0, 5, 0, 5);
     this.columnRight = new MyCylinder(this, 20, 20,1/15,1);
   	this.clock = new MyClock(this,105,184.5,270);
 	this.fin = new MyFin(this);
 	this.submarine = new MySubmarine(this);
-	this.submarine.setVertical(0);
-    this.submarine.setDirection(0);
 	
 
 	// Scene Extras
@@ -66,6 +65,20 @@ MyScene.prototype.init = function(application) {
 	
     // Materials
     this.materialDefault = new CGFappearance(this);
+
+    this.poke1 = new CGFappearance(this);
+ 	this.poke1.loadTexture("../resources/images/poke1.png");
+ 	this.poke1.setTextureWrap("CLAMP_TO_EDGE","CLAMP_TO_EDGE");
+	this.poke1.setDiffuse(0.9,0.9,0.9,1);
+	this.poke1.setSpecular(0.1,0.1,0.1,1);	
+	this.poke1.setShininess(30);
+
+	this.poke2 = new CGFappearance(this);
+ 	this.poke2.loadTexture("../resources/images/poke2.png");
+ 	this.poke2.setTextureWrap("CLAMP_TO_EDGE","CLAMP_TO_EDGE");
+	this.poke2.setDiffuse(0.9,0.9,1,1);
+	this.poke2.setSpecular(0.1,0.1,0.1,1);	
+	this.poke2.setShininess(30);
 	
 	this.floorAppearance = new CGFappearance(this);
  	this.floorAppearance.loadTexture("../resources/images/pokemon2.png");
@@ -257,6 +270,10 @@ MyScene.prototype.setheight = function(height){
     this.submarine.setheight(height);
 }
 
+MyScene.prototype.setScope = function(scop){
+    this.submarine.setScope(scop);
+}
+
 MyScene.prototype.setDirection = function(value){
 	this.submarine.setDirection(value);
 }
@@ -319,6 +336,24 @@ MyScene.prototype.display = function() {
 
 
     // ---- BEGIN Primitive drawing section
+
+    	// New Left Wall
+	this.pushMatrix();
+		this.translate(0, 4, 7.5);
+		this.rotate(90 * degToRad, 0, 1, 0);
+		this.scale(15, 8, 0.2);
+		this.poke1.apply();
+		this.wall.display();
+	this.popMatrix();
+
+	// Plane Wall
+	this.pushMatrix();
+		this.translate(7.5, 4, 0);
+		this.scale(15, 8, 0.2);
+		this.poke2.apply();
+		this.wall.display();
+	this.popMatrix();
+
     
     // Floor
 	
