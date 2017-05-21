@@ -141,10 +141,10 @@ MyScene.prototype.init = function(application) {
 	this.blue.setShininess(120);
 	
 	this.submarineAppearanceList = {};
-	this.submarineAppearanceList["Yellow"] = 0;
-	this.submarineAppearanceList["Red"] = 1;
-	this.submarineAppearanceList["Black"] = 2;
-	this.submarineAppearanceList["White"] = 3;
+	this.submarineAppearanceList["Beatles"] = 0;
+	this.submarineAppearanceList["RedDevil"] = 1;
+	this.submarineAppearanceList["80's"] = 2;
+	this.submarineAppearanceList["The White Knight"] = 3;
 
 	
 	this.setUpdatePeriod(50);
@@ -289,8 +289,16 @@ MyScene.prototype.setTorpedo = function(){
 	this.submarine.setTorpedo();
 }
 
+MyScene.prototype.rotateTorpedo = function(value){
+	this.submarine.rotTorp(value);
+}
+
 MyScene.prototype.updateTorpedo = function(){
 	this.submarine.updateTorpedo();
+}
+
+MyScene.prototype.fire = function(){
+	this.submarine.fire();
 }
 
 MyScene.prototype.update = function(currTime) {

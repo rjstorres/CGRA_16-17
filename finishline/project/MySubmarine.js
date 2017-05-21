@@ -20,10 +20,14 @@
 	this.angleT = 0;
 	this.angleF = 0;
 	this.scopepos = 0;
+
 	this.torpAngle = 0;
 	this.torpupdate = 0;
 
 	this.torp = 0;
+
+	this.xtorp = 0;
+	this.ztorp = 0;
  	
     this.body = new MyCylinder(this.scene, 40, 4, 1, 1); //(scene, slices, stacks, stackheight, wide)
     this.hatch = new MyCylinder(this.scene, 40, 2, 0.6, 0.6);
@@ -178,24 +182,50 @@ MySubmarine.prototype.updateTorpedo = function(){
 	if(this.torpupdate<-1.5){
 		this.setTorPos(-1.5);
 	}
-	if(this.torpupdate==-1.5){
-		this.rotTorp();
+	if(this.tfire==1){
+		this.fireTorpedo();
 	}
+/*	if(this.torpupdate==-1.5){
+		this.rotTorp();
+	}*/
 }
 
 MySubmarine.prototype.setTorPos = function(value){
 	this.torpupdate = value;
 }
 
+/*
 MySubmarine.prototype.rotTorp = function(){
-	if(this.torpAngle<this.angle+Math.atan((this.zpos/this.xpos))){
-//	if(this.torpAngle<60*degToRad){
+//	console.log(" " + Math.atan(this.zpos/this.xpos) + " " + this.angle);
+	if(this.torpAngle> Math.abs(Math.atan(Math.cos(this.angle)/Math.sin(this.angle)))){
+//	if(this.torpAngle<90*degToRad){
+		this.torpAngle = this.torpAngle - 5*degToRad;
+	}
+
+	if(this.torpAngle<Math.abs(this.angle)+Math.abs(Math.atan(this.zpos/this.xpos))){
+//	if(this.torpAngle>90*degToRad){
 		this.torpAngle = this.torpAngle + 5*degToRad;
 	}
+}
+*/
+
+MySubmarine.prototype.rotTorp = function(value){
+	this.torpAngle += value*degToRad;
 }
 
 MySubmarine.prototype.setTorpedo = function(){
 	this.torp = 1;
+}
+
+MySubmarine.prototype.fire = function(){
+	this.tfire = 1;
+//	this.torp = 1;
+//	this.torpAngle = 0;
+//	this.torpupdate = 0;
+}
+
+MySubmarine.prototype.fireTorpedo = function(){
+
 }
 
 
@@ -447,7 +477,7 @@ MySubmarine.prototype.setTorpedo = function(){
 //		this.scene.rotate(this.angle*degToRad,1,1,1);
 //		this.scene.translate(this.xpos,this.ypos-2,this.zpos);
 //		this.scene.translate(0,-1.5,1.2);
-		this.scene.translate(0,0+this.torpupdate,1.6);
+		this.scene.translate(0+this.xtorp,0+this.torpupdate,1.6+this.ztorp);
 		this.scene.rotate(this.torpAngle,0,1,0);
 		this.scene.rotate(45*degToRad,0,0,1);
 

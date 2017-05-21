@@ -147,6 +147,21 @@ MyInterface.prototype.processKeyboard = function(event) {
 			this.scene.setVertical(0);
 			this.scene.setTorpedo();
 			break;
+		case(77):
+		case(109):
+			console.log("Key 'M' pressed");
+			this.scene.rotateTorpedo(-5);
+			break;
+		case(78):
+		case(110):
+			console.log("Key 'N' pressed");
+			this.scene.rotateTorpedo(5);
+			break;
+		case(74):
+		case(106):
+			console.log("Key 'J' pressed");
+			this.scene.fire();
+			break;
 	};
 };
 
