@@ -20,6 +20,7 @@
 	this.angleT = 0;
 	this.angleF = 0;
 	this.scopepos = 0;
+	this.torpAngle = 0;
 	this.torpupdate = 0;
 
 	this.torp = 0;
@@ -177,10 +178,20 @@ MySubmarine.prototype.updateTorpedo = function(){
 	if(this.torpupdate<-1.5){
 		this.setTorPos(-1.5);
 	}
+	if(this.torpupdate==-1.5){
+		this.rotTorp();
+	}
 }
 
 MySubmarine.prototype.setTorPos = function(value){
 	this.torpupdate = value;
+}
+
+MySubmarine.prototype.rotTorp = function(){
+	if(this.torpAngle<this.angle+Math.atan((this.zpos/this.xpos))){
+//	if(this.torpAngle<60*degToRad){
+		this.torpAngle = this.torpAngle + 5*degToRad;
+	}
 }
 
 MySubmarine.prototype.setTorpedo = function(){
@@ -436,8 +447,10 @@ MySubmarine.prototype.setTorpedo = function(){
 //		this.scene.rotate(this.angle*degToRad,1,1,1);
 //		this.scene.translate(this.xpos,this.ypos-2,this.zpos);
 //		this.scene.translate(0,-1.5,1.2);
-		this.scene.translate(0,0+this.torpupdate,1.2);
+		this.scene.translate(0,0+this.torpupdate,1.6);
+		this.scene.rotate(this.torpAngle,0,1,0);
 		this.scene.rotate(45*degToRad,0,0,1);
+
 		if(this.torp == 1){this.torpedo.display();}
 	this.scene.popMatrix();
  }

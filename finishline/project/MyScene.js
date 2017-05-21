@@ -416,6 +416,7 @@ MyScene.prototype.display = function() {
 	this.targetlist[0]=[2,1.1,2];
 
 
+/*
 	//Target 2
 	this.pushMatrix();
 		this.translate(13,1.1,13);
@@ -427,7 +428,7 @@ MyScene.prototype.display = function() {
     
     this.targetlist[1]=[];
 	this.targetlist[1]=[13,1.1,13];
-
+*/
 
 
 
